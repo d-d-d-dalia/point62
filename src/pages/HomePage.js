@@ -14,6 +14,10 @@ const HomePage = () => {
             <p>If your guess is close enough, congrats! You're less of an annoying tourist now!</p> 
             <p>If it's too far off, congrats! You get to try again! (If you want a hint, we'll allow it.)</p>
       </section>
+
+      <form>
+        
+      </form>
     
     </>
 }
