@@ -1,5 +1,4 @@
 const HomePage = () => {
-  console.log('@@env', process.env)
   return <>
     <header>
       <h1>Welcome to point62! </h1>
@@ -12,17 +11,13 @@ const HomePage = () => {
         <li>Check out the route on the map</li>
         <li>Enter a guess for the distance in kilometers!</li>
       </ul>
-      <p>If your guess is close enough, congrats! You're less of an annoying tourist now!</p>
+      <p>If your guess is close enough, congrats! Traveling will be easier for you now! </p>
       <p>If it's too far off, congrats! You get to try again! (If you want a hint, we'll allow it.)</p>
     </section>
 
-    <iframe
-      width="450"
-      height="250"
-      frameBorder="0" style={{ border: 0 }}
-      src={`https://www.google.com/maps/embed/v1/directions?key=${process.env.REACT_APP_DISTANCE_KEY}&origin=Oslo+Norway
-  &destination=Telemark+Norway`} allowFullScreen>
-    </iframe>
+    <img src={`https://maps.googleapis.com/maps/api/staticmap?size=500x500
+&markers=color:blue%7Clabel:A%7CDelta+Junction,AK
+&markers=color:blue%7Clabel:B%7CNew+York,NY&key=${process.env.REACT_APP_GOOGLE_API_KEY} `} alt="map displaying markers for Delta Junction, AK and New York, NY" />
 
   </>
 }
