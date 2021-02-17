@@ -1,4 +1,36 @@
+import usePlacesAutocomplete from "use-places-autocomplete";
+import useOnclickOutside from 'react-cool-onclickoutside';
+
 const HomePage = () => {
+  const {
+    value,
+    suggestions: { status, data },
+    setValue,
+    clearSuggestions
+  } = usePlacesAutocomplete()
+  const ref = useOnclickOutside(() => clearSuggestions())
+
+  const handleInput = e => setValue(e.target.value)
+
+  const handleSelect = ({ description }) => () => {
+    setValue(description, false)
+  }
+
+  const renderSuggestions = () => {
+    return data.map(suggestion => {
+      const {
+        place_id,
+        structured_formatting: { main_text, secondary_text }
+      } = suggestion
+
+      return (
+        <li key={place_id} onClick={handleSelect(suggestion)}>
+          <strong>{main_text}</strong> <small>{secondary_text}</small>
+        </li>
+      )
+    })
+  }
+
   return <>
     <header className="col-span-2 row-start-1 text-center">
       <h1>Welcome to point62! </h1>
@@ -16,18 +48,18 @@ const HomePage = () => {
       <p>If it's too far off, congrats! You get to try again! (If you want a hint, we'll allow it.)</p>
     </section>
 
-    <form className="flex flex-col">
-      <label htmlFor="point-a">Point A:</label>
-      <input id="point-a" type="text" name="point-a" className="border-2 border-black" />
-      <label htmlFor="point-b">Point B:</label>
-      <input id="point-b" type="text" name="point-a" className="border-2 border-black" />
-      <input type="submit" value="submit" />
-    </form>
+    <div ref={ref}>
+      <label htmlFor="places-dropdown">Select the first Point:</label>
+      <input
+        id="places-dropdown"
+        value={value} onChange={handleInput} />
+      {status === 'OK' && <ul>{renderSuggestions()}</ul>}
+    </div>
 
-    { true ? <p>loading...</p> :
+    {/* { true ? <p>loading...</p> :
       <img src={`https://maps.googleapis.com/maps/api/staticmap?size=500x500
   &markers=color:blue%7Clabel:A%7CDelta+Junction,AK
-  &markers=color:blue%7Clabel:B%7CNew+York,NY&key=${process.env.REACT_APP_GOOGLE_API_KEY} `} alt="map displaying markers for Delta Junction, AK and New York, NY" />}
+  &markers=color:blue%7Clabel:B%7CNew+York,NY&key=${process.env.REACT_APP_GOOGLE_API_KEY} `} alt="map displaying markers for Delta Junction, AK and New York, NY" />} */}
 
 
   </>
