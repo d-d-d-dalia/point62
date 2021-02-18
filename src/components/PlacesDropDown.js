@@ -31,12 +31,12 @@ const PlacesDropDown = ({ labelText, updateStateRef }) => {
       )
     })
   }
-
+const labelTextToId = labelText.replace(" ", "-").toLowerCase()
   return (
     <div ref={ref}>
-      <label htmlFor="places-dropdown">{labelText}</label>
+      <label htmlFor={labelTextToId}>{labelText}</label>
       <input
-        id="places-dropdown"
+        id={labelTextToId}
         value={value} onChange={handleInput} />
       {status === 'OK' && <ul>{renderSuggestions()}</ul>}
     </div>

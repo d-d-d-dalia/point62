@@ -21,8 +21,8 @@ const HomePage = () => {
       <p>If it's too far off, congrats! You get to try again! (If you want a hint, we'll allow it.)</p>
     </section>
 
-    <PlacesDropDown labelText="Point A:" updateStateRef={setPointA} />
-    <PlacesDropDown labelText="Point B:" updateStateRef={setPointB} />
+    <PlacesDropDown labelText="Point A" updateStateRef={setPointA} />
+    <PlacesDropDown labelText="Point B" updateStateRef={setPointB} />
 
     { pointA === '' && pointB === '' ? <p>loading...</p> :
       <img src={`https://maps.googleapis.com/maps/api/staticmap?size=500x500
