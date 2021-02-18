@@ -15,6 +15,7 @@ const PlacesDropDown = ({ labelText, updateStateRef }) => {
   const handleSelect = ({ description }) => () => {
     setValue(description, false)
     updateStateRef(description)
+    clearSuggestions()
   }
 
   const renderSuggestions = () => {

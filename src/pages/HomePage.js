@@ -21,16 +21,22 @@ const HomePage = () => {
       <p>If it's too far off, congrats! You get to try again! (If you want a hint, we'll allow it.)</p>
     </section>
 
-    <PlacesDropDown labelText="Point A" updateStateRef={setPointA} />
-    <PlacesDropDown labelText="Point B" updateStateRef={setPointB} />
+    <form>
+      <PlacesDropDown labelText="Point A" updateStateRef={setPointA} />
+      <PlacesDropDown labelText="Point B" updateStateRef={setPointB} />
+    </form>
 
     { pointA === '' && pointB === '' ? <p>loading...</p> :
       <img src={`https://maps.googleapis.com/maps/api/staticmap?size=500x500
   &markers=color:blue%7Clabel:A%7C${pointA}
   &markers=color:blue%7Clabel:B%7C${pointB}&key=${process.env.REACT_APP_GOOGLE_API_KEY} `} alt="map displaying markers for Delta Junction, AK and New York, NY" />}
 
-
   </>
 }
 
 export default HomePage
+
+// Guesses - inputs to submit to distance API
+// backend - schema - do we want username column in guesses table? (archade high score)
+// CSS
+// Routes
