@@ -1,9 +1,19 @@
 import { useState } from 'react'
 import PlacesDropDown from "../components/PlacesDropDown"
 
+const URL = "https://maps.googleapis.com/maps/api/distancematrix/json?units=kilometers&origins="
+
 const HomePage = () => {
-  const [pointA, setPointA] = useState('')
+  const [pointA, setPointA] = useState('') // [initalState, updaterFn]
   const [pointB, setPointB] = useState('')
+  const [guess, setGuess] = useState(0)
+
+
+  const handleSubmit = async () => {
+    const response = await fetch(`${URL + pointA}&destinations=${pointB}&key=${env.process.REACT_APP_GOOGLE_API_KEY}`)
+    
+  }
+
   return <>
     <header className="col-span-2 row-start-1 text-center">
       <h1>Welcome to point62! </h1>
@@ -21,9 +31,18 @@ const HomePage = () => {
       <p>If it's too far off, congrats! You get to try again! (If you want a hint, we'll allow it.)</p>
     </section>
 
-    <form>
+    <form onSubmit={handleSubmit} >
       <PlacesDropDown labelText="Point A" updateStateRef={setPointA} />
       <PlacesDropDown labelText="Point B" updateStateRef={setPointB} />
+
+      <label htmlFor="kilometers-guess"> Enter Distance in Kilometers </label>
+      <input 
+        type="number" 
+        id="kilometers-guess" 
+        onChange={(event) => setGuess(event.target.value)}
+        value={guess}
+      />
+      <input type="submit" value="Enter"/>
     </form>
 
     { pointA === '' && pointB === '' ? <p>loading...</p> :
@@ -35,6 +54,17 @@ const HomePage = () => {
 }
 
 export default HomePage
+
+// on the front:
+// use state to send to back end: distance back from distance matrix & input from user
+
+//on the back:
+// do the calculation as to whether close enough or not
+// {
+//   guess: '20',
+//   actual: '429'
+//   correct: 'true/false'
+// }
 
 // Guesses - inputs to submit to distance API
 // backend - schema - do we want username column in guesses table? (archade high score)
