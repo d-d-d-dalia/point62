@@ -29,7 +29,7 @@ const PlacesDropDown = ({ labelText, updateStateRef }) => {
         <li
           key={place_id}
           onClick={handleSelect(suggestion)}
-          tabindex="0"
+          tabIndex="0"
           className="block px-4 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-yellow-500 rounded"
         >
           <strong>{main_text}</strong> <small>{secondary_text}</small>

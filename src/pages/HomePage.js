@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import PlacesDropDown from "../components/PlacesDropDown"
+import { DistanceMatrixService } from '@react-google-maps/api'
 
 const URL = "https://maps.googleapis.com/maps/api/distancematrix/json?units=kilometers&origins="
 
@@ -7,11 +8,14 @@ const HomePage = () => {
   const [pointA, setPointA] = useState('') // [initalState, updaterFn]
   const [pointB, setPointB] = useState('')
   const [guess, setGuess] = useState(0)
+  const [actualDistance, setActualDistance] = useState(0)
+  const [distanceInMiles, setDistanceInMiles] = useState(0)
 
 
-  const handleSubmit = async () => {
-    const response = await fetch(`${URL + pointA}&destinations=${pointB}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`)
+  const handleSubmit = async (e) => {
+    e.preventDefault()
 
+    
   }
 
   return <div className="grid gap-y-5 grid-rows-homepage">
@@ -49,6 +53,26 @@ const HomePage = () => {
           className="bg-blue-500 rounded p-1 mt-2"
         />
       </form>
+
+      {
+        pointA !== '' && pointB !== '' ? <DistanceMatrixService
+          options={{
+            destinations: [pointA],
+            origins: [pointB],
+            travelMode: "DRIVING"
+          }}
+          callback={res => {
+            const distanceInMeters = res.rows[0].elements[0]?.distance?.value
+            const distanceInKilometers = distanceInMeters / 1000
+            const distanceInMiles = distanceInMeters / 1609.34
+
+            setActualDistance(distanceInKilometers / 1000)
+            setDistanceInMiles(distanceInMiles)
+          }}
+        /> : null
+      }
+
+
 
       {
         pointA === '' && pointB === '' ? <p>Please fill out form to see map</p> :
