@@ -10,17 +10,16 @@ const HomePage = () => {
 
 
   const handleSubmit = async () => {
-    const response = await fetch(`${URL + pointA}&destinations=${pointB}&key=${env.process.REACT_APP_GOOGLE_API_KEY}`)
-    
+    const response = await fetch(`${URL + pointA}&destinations=${pointB}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`)
+
   }
 
-  return <>
-    <header className="col-span-2 row-start-1 text-center">
+  return <div className="grid gap-y-5 grid-rows-homepage">
+    <header className="row-start-1 text-center">
       <h1>Welcome to point62! </h1>
       <p>Develop a sense of distance in kilometers for use in your every day life!</p>
     </header>
-    <section className="col-span-2
-    justify-self-center">
+    <section className="justify-self-center">
       <h2 className="text-center underline">How to Play</h2>
       <ul>
         <li>Enter 2 locations in the form below</li>
@@ -31,26 +30,37 @@ const HomePage = () => {
       <p>If it's too far off, congrats! You get to try again! (If you want a hint, we'll allow it.)</p>
     </section>
 
-    <form onSubmit={handleSubmit} >
-      <PlacesDropDown labelText="Point A" updateStateRef={setPointA} />
-      <PlacesDropDown labelText="Point B" updateStateRef={setPointB} />
+    <div className="grid grid-cols-2 gap-x-2">
+      <form onSubmit={handleSubmit} className="relative p-6 rounded-lg border-2 border-gray-600 flex flex-col gap-y-1">
+        <PlacesDropDown labelText="Point A" updateStateRef={setPointA} />
+        <PlacesDropDown labelText="Point B" updateStateRef={setPointB} />
 
-      <label htmlFor="kilometers-guess"> Enter Distance in Kilometers </label>
-      <input 
-        type="number" 
-        id="kilometers-guess" 
-        onChange={(event) => setGuess(event.target.value)}
-        value={guess}
-      />
-      <input type="submit" value="Enter"/>
-    </form>
+        <label htmlFor="kilometers-guess"> Enter Distance in Kilometers: </label>
+        <input
+          type="number"
+          id="kilometers-guess"
+          onChange={(event) => setGuess(event.target.value)}
+          value={guess}
+          className="border-2 border-gray-700"
+        />
+        <input
+          type="submit"
+          value="Enter"
+          className="bg-blue-500 rounded p-1 mt-2"
+        />
+      </form>
 
-    { pointA === '' && pointB === '' ? <p>loading...</p> :
-      <img src={`https://maps.googleapis.com/maps/api/staticmap?size=500x500
+      {
+        pointA === '' && pointB === '' ? <p>Please fill out form to see map</p> :
+          <img src={`https://maps.googleapis.com/maps/api/staticmap?size=500x500
   &markers=color:blue%7Clabel:A%7C${pointA}
-  &markers=color:blue%7Clabel:B%7C${pointB}&key=${process.env.REACT_APP_GOOGLE_API_KEY} `} alt="map displaying markers for Delta Junction, AK and New York, NY" />}
+  &markers=color:blue%7Clabel:B%7C${pointB}&key=${process.env.REACT_APP_GOOGLE_API_KEY} `}
+            alt="map displaying markers for Delta Junction, AK and New York, NY" className="object-cover object-center rounded border-grey-300 border-2" />
+      }
+    </div>
 
-  </>
+
+  </div >
 }
 
 export default HomePage

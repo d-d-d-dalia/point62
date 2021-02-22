@@ -26,20 +26,30 @@ const PlacesDropDown = ({ labelText, updateStateRef }) => {
       } = suggestion
 
       return (
-        <li key={place_id} onClick={handleSelect(suggestion)}>
+        <li
+          key={place_id}
+          onClick={handleSelect(suggestion)}
+          tabindex="0"
+          className="block px-4 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-yellow-500 rounded"
+        >
           <strong>{main_text}</strong> <small>{secondary_text}</small>
         </li>
       )
     })
   }
-const labelTextToId = labelText.replace(" ", "-").toLowerCase()
+  const labelTextToId = labelText.replace(" ", "-").toLowerCase()
   return (
     <div ref={ref}>
-      <label htmlFor={labelTextToId}>{labelText}</label>
+      <label htmlFor={labelTextToId} className="pr-3">{labelText}</label>
       <input
         id={labelTextToId}
-        value={value} onChange={handleInput} />
-      {status === 'OK' && <ul>{renderSuggestions()}</ul>}
+        value={value}
+        onChange={handleInput}
+        className="border-2 border-gray-700 min-w-full"
+      />
+      {status === 'OK' && <ul
+        className="absolute left-0 z-20 py-2 bg-white rounded-md shadow-xl dark:bg-gray-800"
+      >{renderSuggestions()}</ul>}
     </div>
   )
 }
