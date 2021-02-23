@@ -13,6 +13,16 @@ const HomePage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    // guess <input>, actualDistance <callback>
+    let absoluteValue = Math.abs(guess - actualDistance)
+
+    if (absoluteValue <= 1.5) {
+      window.alert('You got it right!')
+      return
+    }
+
+    window.alert('Try Again!')
+
   }
 
   return <div className="grid gap-y-5 grid-rows-homepage">
@@ -42,6 +52,7 @@ const HomePage = () => {
           id="kilometers-guess"
           onChange={(event) => setGuess(event.target.value)}
           value={guess}
+          step="0.01"
           className="border-2 border-gray-700"
         />
         <input
@@ -56,14 +67,14 @@ const HomePage = () => {
           options={{
             destinations: [pointA],
             origins: [pointB],
-            travelMode: "DRIVING"
+            travelMode: "DRIVING",
           }}
           callback={res => {
             const distanceInMeters = res.rows[0].elements[0]?.distance?.value
             const distanceInKilometers = distanceInMeters / 1000
             const distanceInMiles = distanceInMeters / 1609.34
 
-            setActualDistance(distanceInKilometers / 1000)
+            setActualDistance(distanceInKilometers)
             setDistanceInMiles(distanceInMiles)
           }}
         /> : null
