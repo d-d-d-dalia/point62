@@ -7,13 +7,28 @@ const URL = "https://maps.googleapis.com/maps/api/distancematrix/json?units=kilo
 const HomePage = () => {
   const [pointA, setPointA] = useState('') // [initalState, updaterFn]
   const [pointB, setPointB] = useState('')
-  const [guess, setGuess] = useState(0)
+  const [guess, setGuess] = useState()
   const [actualDistance, setActualDistance] = useState(0)
   const [distanceInMiles, setDistanceInMiles] = useState(0)
+  const [showHint, setShowHint] = useState(false)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    // guess <input>, actualDistance <callback>
+    if (Number.isNaN(actualDistance) === true) {
+      window.alert('Please enter a valid Point A and Point B')
+      return
+    }
+
+    if (pointA === '' || pointB === '') {
+      window.alert('Please Enter a Point A and a Point B.')
+      return
+    }
+
+    if (guess === undefined) {
+      window.alert('Please enter a guess.')
+      return
+    }
+
     let absoluteValue = Math.abs(guess - actualDistance)
 
     if (absoluteValue <= 1.5) {
@@ -42,25 +57,37 @@ const HomePage = () => {
     </section>
 
     <div className="grid grid-cols-2 gap-x-2">
-      <form onSubmit={handleSubmit} className="relative p-6 rounded-lg border-2 border-gray-600 flex flex-col gap-y-1">
-        <PlacesDropDown labelText="Point A" updateStateRef={setPointA} />
-        <PlacesDropDown labelText="Point B" updateStateRef={setPointB} />
+      <div className="p-6 rounded-lg border-2 border-gray-600 flex flex-col">
+        <form onSubmit={handleSubmit} className="relative flex flex-col gap-y-1">
+          <PlacesDropDown labelText="Point A" updateStateRef={setPointA} />
+          <PlacesDropDown labelText="Point B" updateStateRef={setPointB} />
 
-        <label htmlFor="kilometers-guess"> Enter Distance in Kilometers: </label>
-        <input
-          type="number"
-          id="kilometers-guess"
-          onChange={(event) => setGuess(event.target.value)}
-          value={guess}
-          step="0.01"
-          className="border-2 border-gray-700"
-        />
-        <input
-          type="submit"
-          value="Enter"
-          className="bg-blue-500 rounded p-1 mt-2"
-        />
-      </form>
+          <label htmlFor="kilometers-guess"> Enter Distance in Kilometers: </label>
+          <input
+            type="number"
+            id="kilometers-guess"
+            onChange={(event) => setGuess(event.target.value)}
+            value={guess}
+            step="0.01"
+            className="border-2 border-gray-700"
+          />
+          <input
+            type="submit"
+            value="Enter"
+            className="bg-blue-500 rounded p-1 mt-2"
+          />
+        </form>
+
+        {actualDistance !== 0 ? <button
+          onClick={() => setShowHint(true)}
+          className="bg-yellow-500 rounded p-1 mt-1"
+        >
+          Show Hint
+        </button> : null}
+
+        {showHint === true ? <p className="text-center">Distance in miles: {distanceInMiles}</p> : null}
+      </div>
+
 
       {
         pointA !== '' && pointB !== '' ? <DistanceMatrixService
@@ -87,8 +114,8 @@ const HomePage = () => {
   &markers=color:blue%7Clabel:B%7C${pointB}&key=${process.env.REACT_APP_GOOGLE_API_KEY} `}
             alt="map displaying markers for Delta Junction, AK and New York, NY" className="object-cover object-center rounded border-grey-300 border-2" />
       }
-    </div>
 
+    </div>
   </div >
 }
 

@@ -10,8 +10,6 @@ const PlacesDropDown = ({ labelText, updateStateRef }) => {
   } = usePlacesAutocomplete()
   const ref = useOnclickOutside(() => clearSuggestions())
 
-  const handleInput = e => setValue(e.target.value)
-
   const handleSelect = ({ description }) => () => {
     setValue(description, false)
     updateStateRef(description)
@@ -44,7 +42,10 @@ const PlacesDropDown = ({ labelText, updateStateRef }) => {
       <input
         id={labelTextToId}
         value={value}
-        onChange={handleInput}
+        onChange={e => {
+          setValue(e.target.value)
+          updateStateRef(e.target.value)
+        }}
         className="border-2 border-gray-700 min-w-full"
       />
       {status === 'OK' && <ul
