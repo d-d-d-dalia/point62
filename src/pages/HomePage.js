@@ -27,7 +27,7 @@ const HomePage = () => {
         <li>2 - Check out the route on the map.</li>
         <li>3 - Enter a guess for the distance in kilometers.</li>
       </ul>
-      <p>If your guess is close enough, congrats! Traveling will be easier for you now! </p>
+      <p>If your guess is close enough, congrats! International travel will be easier for you now! </p>
       <p>If it's too far off, congrats! You get to try again! (If you want a hint, we'll allow it.)</p>
     </section>
 
