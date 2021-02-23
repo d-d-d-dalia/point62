@@ -11,11 +11,8 @@ const HomePage = () => {
   const [actualDistance, setActualDistance] = useState(0)
   const [distanceInMiles, setDistanceInMiles] = useState(0)
 
-
   const handleSubmit = async (e) => {
     e.preventDefault()
-
-    
   }
 
   return <div className="grid gap-y-5 grid-rows-homepage">
@@ -26,9 +23,9 @@ const HomePage = () => {
     <section className="justify-self-center">
       <h2 className="text-center underline">How to Play</h2>
       <ul>
-        <li>Enter 2 locations in the form below</li>
-        <li>Check out the route on the map</li>
-        <li>Enter a guess for the distance in kilometers!</li>
+        <li>1 - Enter 2 locations in the form below.</li>
+        <li>2 - Check out the route on the map.</li>
+        <li>3 - Enter a guess for the distance in kilometers.</li>
       </ul>
       <p>If your guess is close enough, congrats! Traveling will be easier for you now! </p>
       <p>If it's too far off, congrats! You get to try again! (If you want a hint, we'll allow it.)</p>
@@ -72,8 +69,6 @@ const HomePage = () => {
         /> : null
       }
 
-
-
       {
         pointA === '' && pointB === '' ? <p>Please fill out form to see map</p> :
           <img src={`https://maps.googleapis.com/maps/api/staticmap?size=500x500
@@ -83,24 +78,7 @@ const HomePage = () => {
       }
     </div>
 
-
   </div >
 }
 
 export default HomePage
-
-// on the front:
-// use state to send to back end: distance back from distance matrix & input from user
-
-//on the back:
-// do the calculation as to whether close enough or not
-// {
-//   guess: '20',
-//   actual: '429'
-//   correct: 'true/false'
-// }
-
-// Guesses - inputs to submit to distance API
-// backend - schema - do we want username column in guesses table? (archade high score)
-// CSS
-// Routes
