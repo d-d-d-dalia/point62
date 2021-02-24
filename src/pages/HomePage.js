@@ -31,12 +31,29 @@ const HomePage = () => {
 
     let absoluteValue = Math.abs(guess - actualDistance)
 
-    if (absoluteValue <= 1.5) {
-      window.alert('You got it right!')
+    await fetch('http://localhost:3001/guesses', {
+      'method': 'POST',
+      'headers': {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        guess: {
+          player_name: 'Alice',
+          value: guess,
+          kilometers: actualDistance,
+          success: absoluteValue <= 1.5
+        }
+      })
+    })
+
+    if (absoluteValue >= 1.5) {
+      window.alert('Try Again!')
       return
     }
 
-    window.alert('Try Again!')
+    // send guess to the backend
+    window.alert('You got it right!')
+
 
   }
 
