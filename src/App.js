@@ -16,6 +16,9 @@ function App() {
           <Route exact path="/leaderboard">
             <p>Hello!</p>
           </Route>
+          <Route exact path="/whykilometers">
+            <p> Learn a new language! </p>
+          </Route>
         </Switch>
 
       </main>
