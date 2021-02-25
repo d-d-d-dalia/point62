@@ -54,7 +54,6 @@ const HomePage = () => {
     // send guess to the backend
     window.alert('You got it right!')
 
-
   }
 
   return <div className="grid gap-y-5 grid-rows-homepage">
