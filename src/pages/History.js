@@ -17,10 +17,10 @@ const History = () => {
 
   }, [])
 
-  return <>
-    <h1>History</h1>
-    <table>
-      <tr>
+  return <div className="flex flex-col">
+    <h1 className="text-4xl text-center underline mb-3">History</h1>
+    <table className="table-center border-2 border-black bg-gray-50">
+      <tr className="bg-blue-500 text-xl">
         <th>Player Name</th>
         <th>Guess (km)</th>
         <th>Actual (km)</th>
@@ -28,7 +28,7 @@ const History = () => {
       </tr>
       {
         guesses.map(function (guess) {
-          return <tr>
+          return <tr className="text-center">
             <td>{guess.player_name}</td>
             <td>{guess.value}</td>
             <td>{guess.kilometers}</td>
@@ -38,7 +38,7 @@ const History = () => {
       }
     </table>
 
-  </>
+  </div>
 
 }
 
