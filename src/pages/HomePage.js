@@ -50,8 +50,7 @@ const HomePage = () => {
       window.alert('Try Again!')
       return
     }
-
-    // send guess to the backend
+    
     window.alert('You got it right!')
 
   }
@@ -134,9 +133,11 @@ const HomePage = () => {
       {
         pointA === '' && pointB === '' ? <p>Please fill out form to see map</p> :
           <img src={`https://maps.googleapis.com/maps/api/staticmap?size=500x500
-  &markers=color:blue%7Clabel:A%7C${pointA}
-  &markers=color:blue%7Clabel:B%7C${pointB}&key=${process.env.REACT_APP_GOOGLE_API_KEY} `}
-            alt="map displaying markers for Delta Junction, AK and New York, NY" className="object-cover object-center rounded border-grey-300 border-2" />
+            &markers=color:blue%7Clabel:A%7C${pointA}
+            &markers=color:blue%7Clabel:B%7C${pointB}
+            &key=${process.env.REACT_APP_GOOGLE_API_KEY} `}
+            alt="map displaying markers for Delta Junction, AK and New York, NY" 
+            className="object-cover object-center rounded border-grey-300 border-2" />
       }
 
     </div>
