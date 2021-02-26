@@ -11,11 +11,11 @@ import WhyKilometers from './pages/WhyKilometers'
 function App() {
   return (
     <Router>
-      <nav>
-        <ul className="flex flex-row">
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="/history">History</Link></li>
-          <li><Link to="/whykilometers">Why Kilometers</Link></li>
+      <nav className="flex flex-row-reverse">
+        <ul className="flex flex-row" tabIndex="0">
+          <li className="mr-3 hover:underline hover:text-blue-500"><Link to="/">Home</Link></li>
+          <li className="mr-3 hover:underline hover:text-blue-500"><Link to="/history">History</Link></li>
+          <li className="mr-3 hover:underline hover:text-blue-500"><Link to="/whykilometers">Why Kilometers</Link></li>
         </ul>
       </nav>
       <main className="md:container md:mx-auto mx-w-2xl">
