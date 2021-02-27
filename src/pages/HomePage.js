@@ -28,8 +28,10 @@ const HomePage = () => {
       return
     }
 
-    let absoluteValue = Math.abs(guess - actualDistance)
-    const wasGuessCorrect = absoluteValue <= 1.5
+    //let absoluteValue = Math.abs(guess - actualDistance)
+    //const wasGuessCorrect = absoluteValue <= 1.5
+    const guessInt = parseFloat(guess)
+    const wasGuessCorrect = guessInt < (actualDistance * 1.2) && guessInt > (actualDistance * .8) ? true :false
 
     await fetch('http://localhost:3001/guesses', {
       'method': 'POST',
