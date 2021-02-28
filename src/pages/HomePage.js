@@ -10,6 +10,7 @@ const HomePage = () => {
   const [actualDistance, setActualDistance] = useState(0)
   const [distanceInMiles, setDistanceInMiles] = useState(0)
   const [showHint, setShowHint] = useState(false)
+  const [checkHarder, setCheckHarder] = useState(false)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -28,11 +29,22 @@ const HomePage = () => {
       return
     }
 
+    //const changeBoolean = () => {checkHarder == true ? false : true }
+
     //let absoluteValue = Math.abs(guess - actualDistance)
     //const wasGuessCorrect = absoluteValue <= 1.5
-    const guessInt = parseFloat(guess)
-    const wasGuessCorrect = guessInt < (actualDistance * 1.2) && guessInt > (actualDistance * .8) ? true :false
 
+    const guessFloat = parseFloat(guess)
+
+    const wasGuessCorrect = () => {
+      if (checkHarder == true){
+        return guessFloat < (actualDistance * 1.1) && guessFloat > (actualDistance * .9) ? true : false
+      }
+      else {
+        return guessFloat < (actualDistance * 1.2) && guessFloat > (actualDistance * .8) ? true : false
+      }
+    } 
+    
     await fetch('http://localhost:3001/guesses', {
       'method': 'POST',
       'headers': {
@@ -43,12 +55,13 @@ const HomePage = () => {
           player_name: playerName,
           value: guess,
           kilometers: actualDistance,
-          success: wasGuessCorrect
+          success: wasGuessCorrect(),
+          harder: checkHarder
         }
       })
     })
 
-    if (!wasGuessCorrect) {
+    if (!wasGuessCorrect()) {
       window.alert('Try Again!')
       return
     }
@@ -96,6 +109,15 @@ const HomePage = () => {
             step="0.01"
             className="border-2 border-gray-700"
           />
+          <input 
+            type="checkbox" 
+            id="harder" 
+            name="harder" 
+            value="false"
+            //defaultChecked= 
+            onChange={function() {setCheckHarder(checkHarder == true ? false : true)}}
+            />
+          <label htmlFor="checkbox"> Make it harder </label>
           <input
             type="submit"
             value="Enter"
