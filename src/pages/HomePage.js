@@ -29,21 +29,25 @@ const HomePage = () => {
       return
     }
 
-    //const changeBoolean = () => {checkHarder == true ? false : true }
-
     //let absoluteValue = Math.abs(guess - actualDistance)
     //const wasGuessCorrect = absoluteValue <= 1.5
+    // ^ back when margin of error was a fixed amount
 
     const guessFloat = parseFloat(guess)
 
-    const wasGuessCorrect = () => {
-      if (checkHarder == true){
-        return guessFloat < (actualDistance * 1.1) && guessFloat > (actualDistance * .9) ? true : false
-      }
-      else {
-        return guessFloat < (actualDistance * 1.2) && guessFloat > (actualDistance * .8) ? true : false
-      }
-    } 
+    const wasGuessCorrect = () => checkHarder ? 
+      (guessFloat < (actualDistance * 1.1) && guessFloat > (actualDistance * .9) ? true : false) 
+      : 
+      (guessFloat < (actualDistance * 1.2) && guessFloat > (actualDistance * .8) ? true : false)
+    // ^ refactor
+    // const wasGuessCorrect = () => {
+    //   if (checkHarder == true){
+    //     return guessFloat < (actualDistance * 1.1) && guessFloat > (actualDistance * .9) ? true : false
+    //   }
+    //   else {
+    //     return guessFloat < (actualDistance * 1.2) && guessFloat > (actualDistance * .8) ? true : false
+    //   }
+    // } 
     
     await fetch('http://localhost:3001/guesses', {
       'method': 'POST',
