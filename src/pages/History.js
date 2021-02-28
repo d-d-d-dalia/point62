@@ -39,7 +39,7 @@ const History = () => {
         })
       }
     </table>
-    <h5>* = you checked "make it harder" for a 10% margin of error allowance rather than 20%</h5>
+    <h5>* = 10% margin of error allowance rather than 20% (you checked "Make it harder")</h5>
 
   </div>
 
