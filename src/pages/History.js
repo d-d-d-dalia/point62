@@ -28,25 +28,14 @@ const History = () => {
       </tr>
       {
         guesses.map(function (guess) {
-          if (guess.harder) {
-            let success = `${guess.success.toString()}*`
-            return <tr className="text-center">
+          const success = () => guess.harder ? `${guess.success.toString()}*` : `${guess.success.toString()}`
+          
+          return <tr className="text-center">
             <td>{guess.player_name}</td>
             <td>{guess.value}</td>
             <td>{guess.kilometers}</td>
-            <td>{success}</td>
+            <td>{success()}</td>
           </tr>
-          }
-          else {
-            let success = `${guess.success.toString()}`
-            return <tr className="text-center">
-            <td>{guess.player_name}</td>
-            <td>{guess.value}</td>
-            <td>{guess.kilometers}</td>
-            <td>{success}</td>
-          </tr>
-          }
-          //HOW TO DRY THIS ABOMINATION
         })
       }
     </table>
