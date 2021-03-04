@@ -29,25 +29,12 @@ const HomePage = () => {
       return
     }
 
-    //let absoluteValue = Math.abs(guess - actualDistance)
-    //const wasGuessCorrect = absoluteValue <= 1.5
-    // ^ back when margin of error was a fixed amount
-
     const guessFloat = parseFloat(guess)
 
     const wasGuessCorrect = () => checkHarder ? 
       (guessFloat < (actualDistance * 1.1) && guessFloat > (actualDistance * .9) ? true : false) 
       : 
       (guessFloat < (actualDistance * 1.2) && guessFloat > (actualDistance * .8) ? true : false)
-    // ^ refactor
-    // const wasGuessCorrect = () => {
-    //   if (checkHarder == true){
-    //     return guessFloat < (actualDistance * 1.1) && guessFloat > (actualDistance * .9) ? true : false
-    //   }
-    //   else {
-    //     return guessFloat < (actualDistance * 1.2) && guessFloat > (actualDistance * .8) ? true : false
-    //   }
-    // } 
     
     await fetch('http://localhost:3001/guesses', {
       'method': 'POST',
@@ -118,7 +105,6 @@ const HomePage = () => {
             id="harder" 
             name="harder" 
             value="false"
-            //defaultChecked= 
             onChange={function() {setCheckHarder(checkHarder == true ? false : true)}}
             />
           <label htmlFor="checkbox"> Make it harder </label>
@@ -138,7 +124,6 @@ const HomePage = () => {
 
         {showHint === true ? <p className="text-center">Distance in miles: {distanceInMiles}</p> : null}
       </div>
-
 
       {
         pointA !== '' && pointB !== '' ? <DistanceMatrixService
