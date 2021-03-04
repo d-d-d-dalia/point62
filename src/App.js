@@ -1,23 +1,17 @@
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link
+  Route
 } from "react-router-dom"
 import HomePage from './pages/HomePage'
 import History from './pages/History'
 import WhyKilometers from './pages/WhyKilometers'
+import Nav from './components/Nav'
 
 function App() {
   return (
     <Router>
-      <nav className="flex flex-row-reverse">
-        <ul className="flex flex-row" tabIndex="0">
-          <li className="mr-3 hover:underline hover:text-blue-500"><Link to="/">Home</Link></li>
-          <li className="mr-3 hover:underline hover:text-blue-500"><Link to="/history">History</Link></li>
-          <li className="mr-3 hover:underline hover:text-blue-500"><Link to="/whykilometers">Why Kilometers</Link></li>
-        </ul>
-      </nav>
+      <Nav/>
       <main className="md:container md:mx-auto mx-w-2xl">
         <Switch>
           <Route exact path="/">

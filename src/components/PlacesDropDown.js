@@ -8,6 +8,7 @@ const PlacesDropDown = ({ labelText, updateStateRef }) => {
     setValue,
     clearSuggestions
   } = usePlacesAutocomplete()
+  
   const ref = useOnclickOutside(() => clearSuggestions())
 
   const handleSelect = ({ description }) => () => {
@@ -35,7 +36,9 @@ const PlacesDropDown = ({ labelText, updateStateRef }) => {
       )
     })
   }
+
   const labelTextToId = labelText.replace(" ", "-").toLowerCase()
+
   return (
     <div ref={ref}>
       <label htmlFor={labelTextToId} className="pr-3">{labelText}</label>
