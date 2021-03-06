@@ -105,7 +105,7 @@ const HomePage = () => {
             id="harder" 
             name="harder" 
             value="false"
-            onChange={function() {setCheckHarder(checkHarder == true ? false : true)}}
+            onChange={() => setCheckHarder(checkHarder == true ? false : true)}
             />
           <label htmlFor="checkbox"> Make it harder </label>
           <input
